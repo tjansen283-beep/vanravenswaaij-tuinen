@@ -1,120 +1,104 @@
-#!/usr/bin/env python3
+import json
+import os
 import re
-import ssl
-import urllib.request
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
 
-BASE_URL = "https://www.vanravenswaaijtuinen.nl/"
-PUBLIC_DIR = Path(__file__).resolve().parent / "public"
-IMG_DIR = PUBLIC_DIR / "img"
-IMG_DIR.mkdir(parents=True, exist_ok=True)
-
-TARGET_FILES = [
-    "hero.jpg",
-    "team.jpg",
-    "dienst-ontwerp.jpg",
-    "dienst-aanleg.jpg",
-    "dienst-onderhoud.jpg",
-    "dienst-renovatie.jpg",
-    "project-oosterbeek.jpg",
-    "project-veenendaal.jpg",
-    "project-bestrating.jpg",
-    "project-cortenstaal.jpg",
-    "project-gazon.jpg",
-    "project-onderhoud.jpg",
-]
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
-}
+PORTFOLIO_URL = "https://www.vanravenswaaijtuinen.nl/portfolio/"
+BASE_DIR = Path(__file__).resolve().parent
+OUT_IMG_DIR = BASE_DIR / "public" / "img" / "portfolio"
+OUT_JSON = BASE_DIR / "public" / "portfolio.json"
 
 
-def haal_html(url: str, ctx: ssl.SSLContext) -> str:
-    req = urllib.request.Request(url, headers=HEADERS)
-    with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
-        return resp.read().decode("utf-8", errors="ignore")
+class ImageExtractor(HTMLParser):
+    def __init__(self, base_url: str):
+        super().__init__()
+        self.base_url = base_url
+        self.images: list[dict] = []
+        self._seen: set[str] = set()
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]):
+        if tag.lower() != "img":
+            return
+        attr_map = {k.lower(): (v or "") for k, v in attrs}
+        raw_src = (
+            attr_map.get("data-src")
+            or attr_map.get("data-lazy-src")
+            or attr_map.get("src")
+            or ""
+        ).strip()
+        if not raw_src or raw_src.startswith("data:"):
+            return
+
+        full_url = urljoin(self.base_url, raw_src)
+        lower = full_url.lower()
+        if any(skip in lower for skip in ("logo", "favicon", "gravatar", "emoji", "sprite")):
+            return
+
+        if full_url not in self._seen:
+            self._seen.add(full_url)
+            self.images.append({
+                "url": full_url,
+                "alt": attr_map.get("alt", "").strip(),
+            })
 
 
-def vind_afbeeldingen():
-    ctx = ssl.create_default_context()
-    bezocht = set()
-    te_bezoeken = [BASE_URL]
-    gevonden_urls = []
+def safe_filename(url: str, index: int) -> str:
+    path = urlparse(url).path
+    ext = os.path.splitext(path)[1].lower()
+    if ext not in {".jpg", ".jpeg", ".png", ".webp"}:
+        ext = ".jpg"
+    stem = re.sub(r"[^a-z0-9_-]+", "-", os.path.splitext(os.path.basename(path))[0].lower()).strip("-")
+    if not stem:
+        stem = f"project-{index:02d}"
+    return f"{index:02d}-{stem}{ext}"
 
-    while te_bezoeken and len(bezocht) < 15:
-        url = te_bezoeken.pop(0)
-        if url in bezocht:
-            continue
-        bezocht.add(url)
-        try:
-            html = haal_html(url, ctx)
-        except Exception as e:
-            print(f"[WAARSCHUWING] Kon {url} niet openen: {e}")
-            continue
 
-        # Zoek interne subpagina's van vanravenswaaijtuinen.nl
-        for href in re.findall(r'href=["\']([^"\']+)["\']', html, re.I):
-            full = urljoin(url, href).split("#")[0]
-            if urlparse(full).netloc == urlparse(BASE_URL).netloc and full not in bezocht:
-                if not re.search(r"\.(jpg|jpeg|png|webp|gif|pdf|css|js)$", full, re.I):
-                    te_bezoeken.append(full)
+def fetch_html(url: str) -> str:
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; PortfolioFetcher/1.0)"})
+    with urlopen(req, timeout=20) as resp:
+        return resp.read().decode("utf-8", errors="replace")
 
-        # Zoek afbeeldingen in src, data-src, srcset en CSS url(...)
-        for match in re.findall(
-            r'(?:src|data-src|content)=["\']([^"\']+\.(?:jpg|jpeg|png|webp)(?:\?[^"\']*)?)["\']|url\(["\']?([^"\'\)]+\.(?:jpg|jpeg|png|webp)(?:\?[^"\'\)]*)?)["\']?\)',
-            html,
-            re.I,
-        ):
-            raw = match[0] or match[1]
-            img_url = urljoin(url, raw)
-            # Filter kleine iconen / trackers weg
-            if any(skip in img_url.lower() for skip in ("favicon", "logo-klein", "pixel", "1x1", "spacer")):
-                continue
-            if img_url not in gevonden_urls:
-                gevonden_urls.append(img_url)
 
-    return gevonden_urls, ctx
+def download_file(url: str, dest: Path) -> bool:
+    try:
+        req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; PortfolioFetcher/1.0)"})
+        with urlopen(req, timeout=25) as resp:
+            data = resp.read()
+        if len(data) < 2000:
+            return False
+        dest.write_bytes(data)
+        return True
+    except Exception as exc:
+        print(f"Fout bij downloaden {url}: {exc}")
+        return False
 
 
 def main():
-    print(f"Afbeeldingen ophalen van {BASE_URL} ...")
-    urls, ctx = vind_afbeeldingen()
-    print(f"Gevonden unieke afbeeldings-URL's: {len(urls)}")
+    OUT_IMG_DIR.mkdir(parents=True, exist_ok=True)
+    html = fetch_html(PORTFOLIO_URL)
+    parser = ImageExtractor(PORTFOLIO_URL)
+    parser.feed(html)
 
-    gedownload = []
-    for idx, img_url in enumerate(urls, 1):
-        try:
-            req = urllib.request.Request(img_url, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=15, context=ctx) as resp:
-                data = resp.read()
-            # Sla kleine iconen (< 8 KB) over
-            if len(data) < 8192:
-                continue
-            orig_name = Path(urlparse(img_url).path).name or f"orig_{idx}.jpg"
-            orig_path = IMG_DIR / f"orig_{idx}_{orig_name}"
-            orig_path.write_bytes(data)
-            gedownload.append(orig_path)
-            print(f"  [{len(gedownload)}] {img_url} -> {orig_path.name} ({len(data)//1024} KB)")
-        except Exception as e:
-            print(f"  [FOUT] {img_url}: {e}")
+    saved = []
+    idx = 1
+    for item in parser.images:
+        fname = safe_filename(item["url"], idx)
+        dest = OUT_IMG_DIR / fname
+        if download_file(item["url"], dest):
+            saved.append({
+                "id": idx,
+                "alt": item["alt"],
+                "source_url": item["url"],
+                "local_path": f"/img/portfolio/{fname}",
+            })
+            idx += 1
 
-    if not gedownload:
-        print("[FOUT] Geen bruikbare foto's gedownload van de originele site.")
-        return
-
-    # Koppel gedownloade foto's aan de verwachte bestandsnamen in public/img/
-    for i, target in enumerate(TARGET_FILES):
-        bron = gedownload[i % len(gedownload)]
-        doel = IMG_DIR / target
-        doel.write_bytes(bron.read_bytes())
-        print(f"  Gekoppeld: {doel.name} <- {bron.name}")
-
-    # Stel ook og-image.jpg in op basis van hero.jpg
-    og_doel = PUBLIC_DIR / "og-image.jpg"
-    og_doel.write_bytes((IMG_DIR / "hero.jpg").read_bytes())
-    print(f"  Gekoppeld: og-image.jpg <- hero.jpg")
-    print("Klaar! Alle afbeeldingen van de originele site zijn geplaatst.")
+    OUT_JSON.write_text(json.dumps(saved, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"Opgeslagen: {len(saved)} afbeeldingen in {OUT_IMG_DIR}")
+    print(f"Manifest geschreven naar {OUT_JSON}")
 
 
 if __name__ == "__main__":
