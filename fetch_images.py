@@ -3,8 +3,8 @@ import shutil
 from pathlib import Path
 from urllib.request import Request, urlopen
 
-TARGET_DIR = Path("/var/www/vanravenswaaij/public/img")
-OG_TARGET = Path("/var/www/vanravenswaaij/public/og-image.jpg")
+TARGET_DIR = Path("~/Downloads/vanravenswaaij/public/img")
+OG_TARGET = Path("~/Downloads/vanravenswaaij/public/og-image.jpg")
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36",
