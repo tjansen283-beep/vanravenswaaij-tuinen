@@ -38,7 +38,7 @@
     "addressCountry": "NL"
   },
   "geo": {"@type": "GeoCoordinates", "latitude": 51.922, "longitude": 5.502},
-  "areaServed": ["Echteld","Betuwe","Tiel","Opheusden","Kesteren","Oosterbeek","Veenendaal","Nijmegen","Druten","Bemmel"],
+  "areaServed": ["Echteld","Betuwe","Tiel","Opheusden","Kesteren","Oosterbeek","Son","Beneden-Leeuwen","Malden","Bunnik","Noordwijk"],
   "sameAs": ["https://www.facebook.com/vanravenswaaijtuinen/","https://www.instagram.com/vanravenswaaijtuinen/"]
 }
 </script>
@@ -122,7 +122,7 @@ p{margin-bottom:1rem}
 .dienst-card p{color:var(--tekst-licht);font-size:.95rem;margin-bottom:1rem}
 .dienst-card .link-pijl{font-weight:600;font-size:.9rem;color:var(--groen-700);display:inline-flex;align-items:center;gap:.3rem}
 .grid-projecten{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
-.project-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;cursor:pointer;display:block;box-shadow:var(--shadow);background:var(--groen-700)}
+.project-card{position:relative;border-radius:var(--radius-lg);overflow:hidden;aspect-ratio:4/3;display:block;box-shadow:var(--shadow);background:var(--groen-700)}
 .project-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
 .project-card:hover img{transform:scale(1.06)}
 .project-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(31,51,25,.85) 0%,transparent 55%);transition:opacity var(--transitie)}
@@ -130,10 +130,12 @@ p{margin-bottom:1rem}
 .project-overlay h3{color:var(--wit);font-size:1.3rem;margin-bottom:.2rem}
 .project-overlay span{font-size:.85rem;color:var(--groen-300);font-weight:500}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,6vw,5rem);align-items:center}
-.split-beeld{aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--groen-500)}
+.split-beeld{aspect-ratio:4/3;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-lg);background:var(--groen-500)}
 .split-beeld img{width:100%;height:100%;object-fit:cover}
 .split-tekst p{color:var(--tekst-licht)}
-@media(max-width:760px){.split{grid-template-columns:1fr}.split-beeld{aspect-ratio:4/3}}
+@media(max-width:760px){.split{grid-template-columns:1fr}}
+.keurmerken{display:flex;flex-wrap:wrap;align-items:center;gap:1.5rem;margin-top:1.5rem}
+.keurmerken img{height:64px;width:auto;object-fit:contain;background:var(--wit);padding:.4rem .6rem;border-radius:var(--radius);border:1px solid var(--groen-100)}
 .usp-rij{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;text-align:center;margin-top:3rem}
 .usp-nummer{font-family:var(--font-display);font-size:2.5rem;color:var(--groen-500);font-weight:500;line-height:1;margin-bottom:.4rem}
 .usp-label{font-size:.9rem;color:var(--tekst-licht)}
@@ -277,20 +279,20 @@ form textarea{min-height:140px;resize:vertical}
       <div class="sectie-kop reveal">
         <span class="eyebrow">Recent werk</span>
         <h2>Uitgelichte projecten</h2>
-        <p>Meer recente projecten en foto's zijn te vinden op onze Facebook- en Instagrampagina.</p>
+        <p>Een selectie van onze gerealiseerde tuinen en buitenprojecten in de regio.</p>
       </div>
       <div class="grid-projecten">
-        <a href="#projecten" class="project-card reveal">
-          <img src="img/project-oosterbeek.jpg" alt="Tuinrenovatie in Oosterbeek" loading="lazy">
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-oosterbeek.jpg" alt="Tuinrenovatie en oprit in Oosterbeek" loading="lazy">
           <div class="project-overlay"><span>Oosterbeek</span><h3>Tuinrenovatie &amp; oprit</h3></div>
         </a>
-        <a href="#projecten" class="project-card reveal">
-          <img src="img/project-veenendaal.jpg" alt="Tuinaanleg in Veenendaal" loading="lazy">
-          <div class="project-overlay"><span>Veenendaal</span><h3>Tuinaanleg &amp; beplanting</h3></div>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-son.jpg" alt="Voor- en achtertuin met overkapping in Son" loading="lazy">
+          <div class="project-overlay"><span>Son</span><h3>Voor- &amp; achtertuin</h3></div>
         </a>
-        <a href="#projecten" class="project-card reveal">
-          <img src="img/project-bestrating.jpg" alt="Onderhoud en aanleg in Echteld en omgeving" loading="lazy">
-          <div class="project-overlay"><span>Echteld &amp; omgeving</span><h3>Aanleg &amp; groenonderhoud</h3></div>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-overkapping.jpg" alt="Geïsoleerde overkapping met glazen schuifwand in Beneden-Leeuwen" loading="lazy">
+          <div class="project-overlay"><span>Beneden-Leeuwen</span><h3>Complete overkapping</h3></div>
         </a>
       </div>
       <div class="tekst-midden mt-2 reveal">
@@ -301,12 +303,16 @@ form textarea{min-height:140px;resize:vertical}
   <section class="sectie" style="background: var(--groen-100);">
     <div class="container">
       <div class="split">
-        <div class="split-beeld reveal"><img src="img/team.jpg" alt="Joekie en Henco van Ravenswaaij, Van Ravenswaaij Tuinen in Echteld" loading="lazy"></div>
+        <div class="split-beeld reveal"><img src="img/team.jpg" alt="Van Ravenswaaij Tuinen materieel en team in Echteld" loading="lazy"></div>
         <div class="split-tekst reveal">
           <span class="eyebrow">Over ons</span>
           <h2>Persoonlijk, betrokken, vakkundig</h2>
           <p>Van Ravenswaaij Tuinen — gerund door Joekie en Henco van Ravenswaaij — is sinds begin 2011 actief in tuinontwerp, onderhoud, aanleg en renovatie. Wij zijn gevestigd aan de Stationsweg 27 in Echteld en werken voor particulieren en bedrijven in de Betuwe en omgeving.</p>
           <p>Wij hechten veel waarde aan direct en prettig klantcontact, duidelijke afspraken en vakwerk waar u jarenlang plezier van heeft.</p>
+          <div class="keurmerken">
+            <img src="img/vhg.jpg" alt="Lid van Koninklijke VHG" loading="lazy">
+            <img src="img/tuinkeur.jpg" alt="Tuinkeur gecertificeerd" loading="lazy">
+          </div>
           <a href="#over-ons" class="btn btn-donker mt-2">Maak kennis met ons</a>
         </div>
       </div>
@@ -349,7 +355,7 @@ form textarea{min-height:140px;resize:vertical}
             <li>Materiaal- en indelingsadvies</li>
           </ul>
         </div>
-        <div class="dienst-detail-beeld"><img src="img/dienst-ontwerp.jpg" alt="Tuinontwerp" loading="lazy"></div>
+        <div class="dienst-detail-beeld"><img src="img/dienst-ontwerp.jpg" alt="Tuinontwerp en beplanting" loading="lazy"></div>
       </div>
       <div id="aanleg" class="dienst-detail">
         <div class="dienst-detail-tekst">
@@ -363,7 +369,7 @@ form textarea{min-height:140px;resize:vertical}
             <li>Renovatiewerk zoals herstraatwerk en herbeplanting</li>
           </ul>
         </div>
-        <div class="dienst-detail-beeld"><img src="img/dienst-aanleg.jpg" alt="Tuinaanleg" loading="lazy"></div>
+        <div class="dienst-detail-beeld"><img src="img/dienst-aanleg.jpg" alt="Tuinaanleg en grondwerk" loading="lazy"></div>
       </div>
       <div id="onderhoud" class="dienst-detail">
         <div class="dienst-detail-tekst">
@@ -377,7 +383,7 @@ form textarea{min-height:140px;resize:vertical}
             <li>Afvoer van groenafval met eigen ruime aanhanger</li>
           </ul>
         </div>
-        <div class="dienst-detail-beeld"><img src="img/dienst-onderhoud.jpg" alt="Tuinonderhoud" loading="lazy"></div>
+        <div class="dienst-detail-beeld"><img src="img/dienst-onderhoud.jpg" alt="Tuinonderhoud en snoeiwerk" loading="lazy"></div>
       </div>
       <div id="renovatie" class="dienst-detail" style="border-bottom:none;">
         <div class="dienst-detail-tekst">
@@ -391,7 +397,7 @@ form textarea{min-height:140px;resize:vertical}
             <li>Geschikt voor zowel particuliere als zakelijke tuinen</li>
           </ul>
         </div>
-        <div class="dienst-detail-beeld"><img src="img/dienst-renovatie.jpg" alt="Tuinrenovatie" loading="lazy"></div>
+        <div class="dienst-detail-beeld"><img src="img/dienst-renovatie.jpg" alt="Tuinrenovatie met douglashout en graszoden" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -409,22 +415,36 @@ form textarea{min-height:140px;resize:vertical}
   <div class="pagina-header">
     <div class="container">
       <h1>Onze projecten</h1>
-      <p>Een greep uit projecten en werkzaamheden. Bekijk ook onze recente updates op Facebook en Instagram.</p>
+      <p>Een greep uit gerealiseerde tuinen, overkappingen, renovaties en landschapsprojecten.</p>
     </div>
   </div>
   <section class="sectie">
     <div class="container">
       <div class="grid-projecten">
-        <a href="https://www.facebook.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-oosterbeek.jpg" alt="Tuinrenovatie in Oosterbeek" loading="lazy"><div class="project-overlay"><span>Oosterbeek</span><h3>Tuinrenovatie &amp; oprit</h3></div></a>
-        <a href="https://www.instagram.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-veenendaal.jpg" alt="Project in Veenendaal" loading="lazy"><div class="project-overlay"><span>Veenendaal</span><h3>Tuinaanleg</h3></div></a>
-        <a href="https://www.facebook.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-bestrating.jpg" alt="Keramische tegels en gebakken klinkers" loading="lazy"><div class="project-overlay"><span>Bestrating</span><h3>Keramische tegels &amp; klinkers</h3></div></a>
-        <a href="https://www.instagram.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-cortenstaal.jpg" alt="Cortenstaal randen en split" loading="lazy"><div class="project-overlay"><span>Borders</span><h3>Cortenstaal &amp; split</h3></div></a>
-        <a href="https://www.facebook.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-gazon.jpg" alt="Graszoden in voortuin" loading="lazy"><div class="project-overlay"><span>Gazon</span><h3>Graszoden &amp; gazononderhoud</h3></div></a>
-        <a href="https://www.instagram.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="project-card reveal"><img src="img/project-onderhoud.jpg" alt="Snoeien en groenonderhoud" loading="lazy"><div class="project-overlay"><span>Onderhoud</span><h3>Snoeien &amp; jaarrond zorg</h3></div></a>
-      </div>
-      <div class="tekst-midden mt-2 reveal" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-        <a href="https://www.facebook.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="btn btn-donker">Bekijk op Facebook</a>
-        <a href="https://www.instagram.com/vanravenswaaijtuinen/" target="_blank" rel="noopener" class="btn btn-donker">Bekijk op Instagram</a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-oosterbeek.jpg" alt="Tuinrenovatie in Oosterbeek met gebakken klinkers, Schellevis-tegels en cortenstaal" loading="lazy">
+          <div class="project-overlay"><span>Oosterbeek</span><h3>Tuinrenovatie &amp; oprit</h3></div>
+        </a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-son.jpg" alt="Aanleg voor- en achtertuin in Son met overkapping en keramische tegels" loading="lazy">
+          <div class="project-overlay"><span>Son</span><h3>Voor- &amp; achtertuin</h3></div>
+        </a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-overkapping.jpg" alt="Complete overkapping met glazen schuifwand en lichtkoepel in Beneden-Leeuwen" loading="lazy">
+          <div class="project-overlay"><span>Beneden-Leeuwen</span><h3>Complete overkapping</h3></div>
+        </a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-malden.jpg" alt="Tuinrenovatie in Malden met schuur van douglashout en graszoden" loading="lazy">
+          <div class="project-overlay"><span>Malden</span><h3>Renovatie met douglashout</h3></div>
+        </a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-bunnik.jpg" alt="Aanplant van bomen en bosplantsoen in Bunnik" loading="lazy">
+          <div class="project-overlay"><span>Bunnik</span><h3>Bomen &amp; bosplantsoen</h3></div>
+        </a>
+        <a href="#contact" class="project-card reveal">
+          <img src="img/project-noordwijk.jpg" alt="Brugrenovatie met stalen leuning in Noordwijk" loading="lazy">
+          <div class="project-overlay"><span>Noordwijk</span><h3>Brugrenovatie</h3></div>
+        </a>
       </div>
     </div>
   </section>
@@ -454,6 +474,10 @@ form textarea{min-height:140px;resize:vertical}
           <h2>Van passie naar vakmanschap</h2>
           <p>Van Ravenswaaij Tuinen is opgericht in begin 2011 en wordt geleid door Joekie en Henco van Ravenswaaij. Wij zijn een betrokken bedrijf met korte lijnen dat veel waarde hecht aan een goede band met de klant en een verzorgde uitvoering van elke klus.</p>
           <p>Ons bedrijf is gevestigd aan de Stationsweg 27 in Echteld. Vanuit de Betuwe werken we aan tuinen voor zowel particulieren als zakelijke opdrachtgevers in de regio.</p>
+          <div class="keurmerken">
+            <img src="img/vhg.jpg" alt="Lid van Koninklijke VHG" loading="lazy">
+            <img src="img/tuinkeur.jpg" alt="Tuinkeur gecertificeerd" loading="lazy">
+          </div>
         </div>
       </div>
     </div>
