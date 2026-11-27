@@ -132,7 +132,6 @@ p{margin-bottom:1rem}
 .project-overlay span{font-size:.85rem;color:var(--groen-300);font-weight:500}
 .project-hint{font-size:.82rem;color:rgba(255,255,255,.85);margin-top:.35rem;display:inline-flex;align-items:center;gap:.35rem}
 
-/* Foto-viewer (lightbox) */
 .lightbox{position:fixed;inset:0;z-index:900;background:rgba(15,26,13,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);display:flex;flex-direction:column;justify-content:space-between;padding:clamp(1rem,3vw,2rem);color:var(--wit)}
 .lightbox-top{display:flex;align-items:center;justify-content:space-between;gap:1rem;z-index:2}
 .lightbox-teller{font-size:.9rem;font-weight:600;letter-spacing:.06em;color:var(--groen-300);background:rgba(255,255,255,.08);padding:.4rem .85rem;border-radius:999px}
@@ -172,13 +171,15 @@ p{margin-bottom:1rem}
 .cta-banner h2{color:var(--wit)}
 .cta-banner p{color:rgba(255,255,255,.85);margin-bottom:2rem;max-width:55ch;margin-inline:auto}
 .site-footer{background:var(--groen-900);color:rgba(255,255,255,.75);padding:3.5rem 0 1.5rem;font-size:.92rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:3rem}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
 .footer-grid h4{color:var(--wit);font-family:var(--font-body);font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem;font-weight:600}
 .footer-grid ul{list-style:none;display:flex;flex-direction:column;gap:.5rem}
 .footer-grid a{color:rgba(255,255,255,.75)}
 .footer-grid a:hover{color:var(--groen-300)}
 .footer-logo{font-family:var(--font-display);font-size:1.3rem;color:var(--wit);margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
 .footer-logo::before{content:"";width:24px;height:24px;background:var(--groen-300);border-radius:50% 0 50% 50%;transform:rotate(-45deg)}
+.footer-werkgebied{border-top:1px solid rgba(255,255,255,.1);padding:1.1rem 0;font-size:.86rem;color:rgba(255,255,255,.68)}
+.footer-werkgebied strong{color:var(--groen-300);font-weight:600}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;font-size:.85rem;color:rgba(255,255,255,.5)}
 @media(max-width:760px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:480px){.footer-grid{grid-template-columns:1fr}}
@@ -202,8 +203,10 @@ p{margin-bottom:1rem}
 form .veld{margin-bottom:1.2rem}
 form label{display:block;font-weight:500;font-size:.9rem;margin-bottom:.4rem;color:var(--groen-900)}
 form input,form textarea,form select{width:100%;padding:.8rem 1rem;font-family:var(--font-body);font-size:1rem;border:1px solid #d8d8d8;border-radius:var(--radius);background:var(--wit);transition:border-color var(--transitie),box-shadow var(--transitie)}
+form input[type="file"]{padding:.65rem .85rem;font-size:.92rem;cursor:pointer}
 form input:focus,form textarea:focus,form select:focus{outline:none;border-color:var(--groen-500);box-shadow:0 0 0 3px rgba(74,124,89,.15)}
-form textarea{min-height:140px;resize:vertical}
+form textarea{min-height:130px;resize:vertical}
+.veld-hint{display:block;font-size:.82rem;color:var(--tekst-licht);margin-top:.35rem}
 .form-rij{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 @media(max-width:560px){.form-rij{grid-template-columns:1fr}}
 .form-melding{padding:1rem 1.2rem;border-radius:var(--radius);margin-bottom:1rem;font-size:.95rem;display:none}
@@ -222,16 +225,16 @@ form textarea{min-height:140px;resize:vertical}
 <header class="site-header">
   <div class="container">
     <nav class="nav" aria-label="Hoofdnavigatie">
-      <a href="#home" class="logo"><img src="/logo.jpeg" alt="Van Ravenswaaij" style="height: 36px; width: auto;" /><span>Van Ravenswaaij</span></a>
+      <a href="/home" class="logo"><img src="/logo.jpeg" alt="Van Ravenswaaij" style="height: 36px; width: auto;" /><span>Van Ravenswaaij</span></a>
       <button class="nav-toggle" aria-label="Menu openen" aria-expanded="false" aria-controls="nav-links">
         <span></span><span></span><span></span>
       </button>
       <ul class="nav-links" id="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#diensten">Diensten</a></li>
-        <li><a href="#projecten">Projecten</a></li>
-        <li><a href="#over-ons">Over ons</a></li>
-        <li><a href="#contact" class="nav-cta">Offerte aanvragen</a></li>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/diensten">Diensten</a></li>
+        <li><a href="/projecten">Projecten</a></li>
+        <li><a href="/over-ons">Over ons</a></li>
+        <li><a href="/contact" class="nav-cta">Offerte aanvragen</a></li>
       </ul>
     </nav>
   </div>
@@ -244,8 +247,8 @@ form textarea{min-height:140px;resize:vertical}
         <h1>Tuinen met <em>karakter</em>,<br>aangelegd met zorg</h1>
         <p class="lead">Van Ravenswaaij Tuinen (Henco van Ravenswaaij) ontwerpt, realiseert en onderhoudt tuinen in Echteld, de Betuwe en omgeving — sinds begin 2011.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primair">Vraag een offerte aan</a>
-          <a href="#projecten" class="btn btn-secundair">Bekijk onze projecten</a>
+          <a href="/contact" class="btn btn-primair">Vraag een offerte aan</a>
+          <a href="/projecten" class="btn btn-secundair">Bekijk onze projecten</a>
         </div>
       </div>
     </div>
@@ -277,25 +280,25 @@ form textarea{min-height:140px;resize:vertical}
           <div class="dienst-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"/></svg></div>
           <h3>Tuinontwerp</h3>
           <p>Een tuin die past bij uw wensen en eisen, met mogelijkheid voor 2D- en 3D-tekeningen en een beplantingsplan.</p>
-          <a href="#diensten" class="link-pijl">Meer over ontwerp →</a>
+          <a href="/diensten" class="link-pijl">Meer over ontwerp →</a>
         </article>
         <article class="dienst-card reveal">
           <div class="dienst-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div>
           <h3>Tuinaanleg</h3>
           <p>Van straatwerk, opritten en vlonders tot vijvers, schuttingen, hagen en beplanting — vakkundig aangelegd.</p>
-          <a href="#diensten" class="link-pijl">Meer over aanleg →</a>
+          <a href="/diensten" class="link-pijl">Meer over aanleg →</a>
         </article>
         <article class="dienst-card reveal">
           <div class="dienst-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22c4-4 8-7 8-12a8 8 0 0 0-16 0c0 5 4 8 8 12z"/></svg></div>
           <h3>Tuinonderhoud</h3>
           <p>Van voorjaars- of wintersnoei tot jaarrond onderhoud, inclusief afvoer van groenafval met eigen aanhanger.</p>
-          <a href="#diensten" class="link-pijl">Meer over onderhoud →</a>
+          <a href="/diensten" class="link-pijl">Meer over onderhoud →</a>
         </article>
         <article class="dienst-card reveal">
           <div class="dienst-icoon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12a9 9 0 0 1 18 0M3 12v6a2 2 0 0 0 2 2h2v-6H3zM21 12v6a2 2 0 0 1-2 2h-2v-6h4z"/></svg></div>
           <h3>Tuinrenovatie</h3>
           <p>Herstraatwerk, vernieuwde beplanting, cortenstalen randen en complete tuinrenovaties met oog voor detail.</p>
-          <a href="#diensten" class="link-pijl">Meer over renovatie →</a>
+          <a href="/diensten" class="link-pijl">Meer over renovatie →</a>
         </article>
       </div>
     </div>
@@ -316,13 +319,13 @@ form textarea{min-height:140px;resize:vertical}
           <img src="img/project-son.jpg" alt="Voor- en achtertuin met overkapping in Son" loading="lazy">
           <div class="project-overlay"><span>Son</span><h3>Voor- &amp; achtertuin</h3><span class="project-hint">Foto bekijken ↗</span></div>
         </button>
-        <button type="button" class="project-card reveal" data-locatie="Beneden-Leeuwen" data-titel="Complete overkapping" data-omschrijving="Geïsoleerde overkapping met glazen schuifwand, lichtkoepel en verzorgde afwerking." data-images='["img/project-overkapping.jpg"]'>
+        <button type="button" class="project-card reveal" data-locatie="Beneden-Leeuwen" data-titel="Complete overkapping" data-omschrijving="Geïsoleerde overkapping met glazen schuifwand en lichtkoepel en verzorgde afwerking." data-images='["img/project-overkapping.jpg"]'>
           <img src="img/project-overkapping.jpg" alt="Geïsoleerde overkapping met glazen schuifwand in Beneden-Leeuwen" loading="lazy">
           <div class="project-overlay"><span>Beneden-Leeuwen</span><h3>Complete overkapping</h3><span class="project-hint">Foto bekijken ↗</span></div>
         </button>
       </div>
       <div class="tekst-midden mt-2 reveal">
-        <a href="#projecten" class="btn btn-donker">Alle projecten bekijken</a>
+        <a href="/projecten" class="btn btn-donker">Alle projecten bekijken</a>
       </div>
     </div>
   </section>
@@ -339,7 +342,7 @@ form textarea{min-height:140px;resize:vertical}
             <img src="img/vhg.jpg" alt="Lid van Koninklijke VHG" loading="lazy">
             <img src="img/tuinkeur.jpg" alt="Tuinkeur gecertificeerd" loading="lazy">
           </div>
-          <a href="#over-ons" class="btn btn-donker mt-2">Maak kennis met ons</a>
+          <a href="/over-ons" class="btn btn-donker mt-2">Maak kennis met ons</a>
         </div>
       </div>
     </div>
@@ -355,7 +358,7 @@ form textarea{min-height:140px;resize:vertical}
       <div class="cta-banner reveal">
         <h2>Plannen voor uw tuin?</h2>
         <p>Vertel ons over uw wensen. Wij denken graag met u mee en maken een vrijblijvend voorstel.</p>
-        <a href="#contact" class="btn btn-primair">Neem contact op</a>
+        <a href="/contact" class="btn btn-primair">Neem contact op</a>
       </div>
     </div>
   </section>
@@ -432,7 +435,7 @@ form textarea{min-height:140px;resize:vertical}
       <div class="cta-banner reveal">
         <h2>Klaar om te beginnen?</h2>
         <p>Neem vrijblijvend contact op en ontdek wat wij voor uw tuin kunnen betekenen.</p>
-        <a href="#contact" class="btn btn-primair">Vraag een offerte aan</a>
+        <a href="/contact" class="btn btn-primair">Vraag een offerte aan</a>
       </div>
     </div>
   </section>
@@ -479,7 +482,7 @@ form textarea{min-height:140px;resize:vertical}
       <div class="cta-banner reveal">
         <h2>Uw tuin in dit rijtje?</h2>
         <p>Wij vertellen u graag wat er mogelijk is. Vraag een vrijblijvend gesprek aan.</p>
-        <a href="#contact" class="btn btn-primair">Neem contact op</a>
+        <a href="/contact" class="btn btn-primair">Neem contact op</a>
       </div>
     </div>
   </section>
@@ -488,7 +491,7 @@ form textarea{min-height:140px;resize:vertical}
   <div class="pagina-header">
     <div class="container">
       <h1>Over ons</h1>
-      <p>Henco van Ravenswaaij — betrokken hoveniers met passie voor het vak sinds begin 2011.</p>
+      <p>Henco van Ravenswaaij — betrokken hovenier met passie voor het vak sinds begin 2011.</p>
     </div>
   </div>
   <section class="sectie">
@@ -499,7 +502,7 @@ form textarea{min-height:140px;resize:vertical}
           <span class="eyebrow">Sinds begin 2011</span>
           <h2>Van passie naar vakmanschap</h2>
           <p>Van Ravenswaaij Tuinen is opgericht in begin 2011 en wordt geleid door Henco van Ravenswaaij. Wij zijn een betrokken bedrijf met korte lijnen dat veel waarde hecht aan een goede band met de klant en een verzorgde uitvoering van elke klus.</p>
-          <p>Ons bedrijf is gevestigd aan de Stationsweg 27 in Echteld. Vanuit de Betuwe werken we aan tuinen voor zowel particulieren als zakelijke opdrachtgevers in de regio.</p>
+          <p>Ons bedrijf is gevestigd aan de Stationsweg 27 in Echteld. Vanuit de Betuwe werken we aan tuinen voor zowel particulieren als zakelijke opdrachtgevers in onder meer Echteld, Tiel, Opheusden, Kesteren, Beneden-Leeuwen, Oosterbeek, Bunnik, Malden, Son en Noordwijk.</p>
           <div class="keurmerken">
             <img src="img/vhg.jpg" alt="Lid van Koninklijke VHG" loading="lazy">
             <img src="img/tuinkeur.jpg" alt="Tuinkeur gecertificeerd" loading="lazy">
@@ -538,7 +541,7 @@ form textarea{min-height:140px;resize:vertical}
       <div class="cta-banner reveal">
         <h2>Kennismaken?</h2>
         <p>We vertellen u graag persoonlijk over onze aanpak en wat we voor uw tuin kunnen betekenen.</p>
-        <a href="#contact" class="btn btn-primair">Neem contact op</a>
+        <a href="/contact" class="btn btn-primair">Neem contact op</a>
       </div>
     </div>
   </section>
@@ -555,7 +558,7 @@ form textarea{min-height:140px;resize:vertical}
       <div class="contact-grid">
         <div class="reveal">
           <h2>Laten we kennismaken</h2>
-          <p>Henco van Ravenswaaij denken graag met u mee over ontwerp, aanleg, renovatie of onderhoud. Vul het formulier in of bel ons direct.</p>
+          <p>Henco van Ravenswaaij denkt graag met u mee over ontwerp, aanleg, renovatie of onderhoud. Vul het formulier in of bel ons direct.</p>
           <ul class="contact-info-lijst">
             <li>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
@@ -576,8 +579,8 @@ form textarea{min-height:140px;resize:vertical}
         </div>
         <div class="reveal">
           <h2>Offerte aanvragen</h2>
-          <p>Vul het formulier in — hoe meer we weten, hoe gerichter we kunnen reageren.</p>
-          <form id="contact-form" action="/api/contact" method="POST" novalidate>
+          <p>Laat uw gegevens achter en stuur eventueel direct foto's van uw huidige tuin mee.</p>
+          <form id="contact-form" action="/api/contact" method="POST" enctype="multipart/form-data" novalidate>
             <div class="form-melding" role="status" aria-live="polite"></div>
             <div class="hp-veld" aria-hidden="true">
               <label for="website">Website</label>
@@ -585,22 +588,19 @@ form textarea{min-height:140px;resize:vertical}
             </div>
             <div class="form-rij">
               <div class="veld"><label for="naam">Naam *</label><input type="text" id="naam" name="naam" required autocomplete="name"></div>
-              <div class="veld"><label for="telefoon">Telefoon</label><input type="tel" id="telefoon" name="telefoon" autocomplete="tel"></div>
+              <div class="veld"><label for="telefoon">Telefoon *</label><input type="tel" id="telefoon" name="telefoon" required autocomplete="tel"></div>
             </div>
-            <div class="veld"><label for="email">E-mailadres *</label><input type="email" id="email" name="email" required autocomplete="email"></div>
+            <div class="form-rij">
+              <div class="veld"><label for="email">E-mailadres (optioneel)</label><input type="email" id="email" name="email" autocomplete="email" placeholder="naam@voorbeeld.nl"></div>
+              <div class="veld"><label for="woonplaats">Postcode of woonplaats</label><input type="text" id="woonplaats" name="woonplaats" autocomplete="postal-code" placeholder="Bijv. 4054 HA Echteld"></div>
+            </div>
+            <div class="veld"><label for="bericht">Uw bericht *</label><textarea id="bericht" name="bericht" required placeholder="Vertel kort over uw tuin en wensen (ontwerp, aanleg, renovatie of onderhoud)..."></textarea></div>
             <div class="veld">
-              <label for="onderwerp">Waar gaat het over?</label>
-              <select id="onderwerp" name="onderwerp">
-                <option value="">— Maak een keuze —</option>
-                <option value="Tuinontwerp (2D / 3D / beplantingsplan)">Tuinontwerp (2D / 3D / beplantingsplan)</option>
-                <option value="Tuinaanleg">Tuinaanleg</option>
-                <option value="Tuinonderhoud">Tuinonderhoud</option>
-                <option value="Tuinrenovatie">Tuinrenovatie</option>
-                <option value="Anders">Anders</option>
-              </select>
+              <label for="fotos">Foto's van uw tuin (optioneel)</label>
+              <input type="file" id="fotos" name="fotos" accept="image/*" multiple>
+              <span class="veld-hint">Maximaal 5 foto's (JPG, PNG of WebP, max. 10 MB per bestand).</span>
             </div>
-            <div class="veld"><label for="bericht">Uw bericht *</label><textarea id="bericht" name="bericht" required placeholder="Vertel kort over uw tuin en wensen..."></textarea></div>
-            <button type="submit" class="btn btn-donker" id="submit-btn">Verstuur bericht</button>
+            <button type="submit" class="btn btn-donker" id="submit-btn">Verstuur aanvraag</button>
           </form>
         </div>
       </div>
@@ -613,11 +613,11 @@ form textarea{min-height:140px;resize:vertical}
     <div class="footer-grid">
       <div><div class="footer-logo">Van Ravenswaaij</div><p>Henco van Ravenswaaij — tuinontwerp, aanleg, renovatie en onderhoud in Echteld en omgeving. Sinds begin 2011.</p></div>
       <div><h4>Navigatie</h4><ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#diensten">Diensten</a></li>
-        <li><a href="#projecten">Projecten</a></li>
-        <li><a href="#over-ons">Over ons</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="/home">Home</a></li>
+        <li><a href="/diensten">Diensten</a></li>
+        <li><a href="/projecten">Projecten</a></li>
+        <li><a href="/over-ons">Over ons</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul></div>
       <div><h4>Contact</h4><ul>
         <li><a href="tel:+31646057599">Tel: +31 6 46057599</a></li>
@@ -628,6 +628,9 @@ form textarea{min-height:140px;resize:vertical}
         <li><a href="https://www.instagram.com/vanravenswaaijtuinen/" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="https://www.facebook.com/vanravenswaaijtuinen/" target="_blank" rel="noopener">Facebook</a></li>
       </ul></div>
+    </div>
+    <div class="footer-werkgebied">
+      <strong>Werkgebied:</strong> Echteld &middot; Betuwe &middot; Tiel &middot; Opheusden &middot; Kesteren &middot; Beneden-Leeuwen &middot; Oosterbeek &middot; Bunnik &middot; Malden &middot; Son &middot; Noordwijk
     </div>
     <div class="footer-bottom">
       <span>&copy; <span class="jaar"></span> Van Ravenswaaij Tuinen. Alle rechten voorbehouden.</span>
@@ -654,7 +657,7 @@ form textarea{min-height:140px;resize:vertical}
       <h3 id="lightbox-titel"></h3>
       <p id="lightbox-omschrijving"></p>
     </div>
-    <a href="#contact" class="btn btn-primair" id="lightbox-contact">Vraag een offerte aan</a>
+    <a href="/contact" class="btn btn-primair" id="lightbox-contact">Vraag een offerte aan</a>
   </div>
 </div>
 
@@ -669,18 +672,44 @@ form textarea{min-height:140px;resize:vertical}
     'contact':'Contact'
   };
   var baseTitel = 'Van Ravenswaaij Tuinen';
+
+  function getPaginaUitPad(){
+    var pad = window.location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    if (!pad || pad === 'index.html') return 'home';
+    return paginas.indexOf(pad) !== -1 ? pad : 'home';
+  }
+
   function toonPagina(){
-    var hash = window.location.hash.replace('#','') || 'home';
-    if (paginas.indexOf(hash) === -1) hash = 'home';
-    document.querySelectorAll('[data-page]').forEach(function(s){ s.hidden = s.getAttribute('data-page') !== hash; });
-    document.querySelectorAll('.nav-links a').forEach(function(a){
-      a.classList.toggle('actief', a.getAttribute('href') === '#' + hash);
+    var pagina = getPaginaUitPad();
+    document.querySelectorAll('[data-page]').forEach(function(s){
+      s.hidden = s.getAttribute('data-page') !== pagina;
     });
-    document.title = (titels[hash] || baseTitel) + ' — ' + baseTitel;
+    document.querySelectorAll('.nav-links a').forEach(function(a){
+      a.classList.toggle('actief', a.getAttribute('href') === '/' + pagina);
+    });
+    document.title = (titels[pagina] || baseTitel) + ' — ' + baseTitel;
     window.scrollTo({top:0,behavior:'instant'});
     activeerReveal();
   }
-  window.addEventListener('hashchange', toonPagina);
+
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a[href]');
+    if (!link) return;
+    if (link.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var href = link.getAttribute('href') || '';
+    if (!href.startsWith('/') || href.startsWith('//')) return;
+    if (link.origin && link.origin !== window.location.origin) return;
+    var doel = href.replace(/^\/+|\/+$/g, '').toLowerCase() || 'home';
+    if (paginas.indexOf(doel) === -1) return;
+    e.preventDefault();
+    if (window.location.pathname !== '/' + doel){
+      window.history.pushState({pagina: doel}, '', '/' + doel);
+    }
+    toonPagina();
+  });
+
+  window.addEventListener('popstate', toonPagina);
+
   var navToggle = document.querySelector('.nav-toggle');
   var navLinks = document.querySelector('.nav-links');
   if (navToggle && navLinks){
@@ -718,7 +747,6 @@ form textarea{min-height:140px;resize:vertical}
   }
   document.querySelectorAll('.jaar').forEach(function(el){ el.textContent = new Date().getFullYear(); });
 
-  // Foto-viewer voor projecten
   var lightbox = document.querySelector('#project-lightbox');
   var lbImg = document.querySelector('#lightbox-beeld');
   var lbTeller = document.querySelector('#lightbox-teller');
@@ -794,12 +822,8 @@ form textarea{min-height:140px;resize:vertical}
     lbPrev.addEventListener('click', function(){ stapFoto(-1); });
     lbNext.addEventListener('click', function(){ stapFoto(1); });
     lbContact.addEventListener('click', function(){
-      var onderwerpVeld = document.querySelector('#onderwerp');
       var berichtVeld = document.querySelector('#bericht');
       var projectNaam = [lbLocatie.textContent, lbTitel.textContent].filter(Boolean).join(' — ');
-      if (onderwerpVeld && !onderwerpVeld.value){
-        onderwerpVeld.value = 'Tuinaanleg';
-      }
       if (berichtVeld && projectNaam && !berichtVeld.value.trim()){
         berichtVeld.value = 'Hallo Henco, we zagen het project "' + projectNaam + '" op uw website en ontvangen graag meer informatie.';
       }
@@ -826,31 +850,57 @@ form textarea{min-height:140px;resize:vertical}
       var knop = document.querySelector('#submit-btn');
       melding.className = 'form-melding';
       melding.textContent = '';
-      var data = {
-        naam: form.naam.value.trim(),
-        telefoon: form.telefoon.value.trim(),
-        email: form.email.value.trim(),
-        onderwerp: form.onderwerp.value,
-        bericht: form.bericht.value.trim(),
-        website: form.website.value
-      };
-      if (!data.naam || !data.email || !data.bericht){
+
+      var naam = form.naam.value.trim();
+      var telefoon = form.telefoon.value.trim();
+      var email = form.email.value.trim();
+      var woonplaats = form.woonplaats.value.trim();
+      var bericht = form.bericht.value.trim();
+      var bestanden = Array.from(form.fotos.files || []);
+
+      if (!naam || !telefoon || !bericht){
         melding.classList.add('fout');
-        melding.textContent = 'Vul alstublieft uw naam, e-mailadres en bericht in.';
+        melding.textContent = 'Vul alstublieft uw naam, telefoonnummer en bericht in.';
         return;
       }
+      if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+        melding.classList.add('fout');
+        melding.textContent = 'Vul een geldig e-mailadres in of laat het veld leeg.';
+        return;
+      }
+      if (bestanden.length > 5){
+        melding.classList.add('fout');
+        melding.textContent = 'U kunt maximaal 5 foto\'s tegelijk meesturen.';
+        return;
+      }
+      if (bestanden.some(function(f){ return f.size > 10 * 1024 * 1024; })){
+        melding.classList.add('fout');
+        melding.textContent = 'Een of meer foto\'s zijn groter dan 10 MB.';
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append('naam', naam);
+      formData.append('telefoon', telefoon);
+      formData.append('email', email);
+      formData.append('woonplaats', woonplaats);
+      formData.append('bericht', bericht);
+      formData.append('website', form.website.value);
+      bestanden.forEach(function(bestand){
+        formData.append('fotos', bestand);
+      });
+
       knop.disabled = true;
       knop.textContent = 'Bezig met versturen...';
       try {
         var res = await fetch('/api/contact', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
+          body: formData
         });
         var resultaat = await res.json();
         if (res.ok && resultaat.ok){
           melding.classList.add('succes');
-          melding.textContent = resultaat.melding || 'Bedankt voor uw bericht!';
+          melding.textContent = resultaat.melding || 'Bedankt voor uw aanvraag! We nemen zo spoedig mogelijk contact met u op.';
           form.reset();
         } else {
           melding.classList.add('fout');
@@ -861,7 +911,7 @@ form textarea{min-height:140px;resize:vertical}
         melding.textContent = 'Geen verbinding met de server. Bel ons gerust op +31 6 46057599.';
       } finally {
         knop.disabled = false;
-        knop.textContent = 'Verstuur bericht';
+        knop.textContent = 'Verstuur aanvraag';
       }
     });
   }
